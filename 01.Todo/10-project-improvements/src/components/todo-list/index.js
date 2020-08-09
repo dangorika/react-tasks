@@ -1,3 +1,3 @@
-import TodoList from 'components/todo-list';
+import TodoList from './todo-list';
 
 export default TodoList;
