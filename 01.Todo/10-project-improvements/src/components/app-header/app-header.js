@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './app-header.css';
+import './app-header.sass';
 
 const AppHeader = ({ toDo, done }) => {
   return (

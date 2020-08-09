@@ -5,7 +5,7 @@ import TodoList from 'components/todo-list';
 import SearchPanel from 'components/search-panel';
 import ItemStatusFilter from 'components/item-status-filter';
 
-import './app.css';
+import './app.sass';
 
 const App = () => {
 
