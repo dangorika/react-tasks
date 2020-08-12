@@ -8,10 +8,14 @@ export default class ItemAddForm extends Component {
     label: ''
   };
 
-  onLabelChange = e => {
+  updateLabel(text) {
     this.setState({
-      label: e.target.value
+      label: text
     });
+  }
+
+  onLabelChange = e => {
+    this.updateLabel(e.target.value);
   };
 
   onSubmit = e => {
@@ -21,17 +25,20 @@ export default class ItemAddForm extends Component {
     const { label } = this.state;
 
     onAdded(label);
-    e.target.reset();
+    this.updateLabel('');
   };
 
   render() {
+    const { label } = this.state;
+
     return (
       <form className="item-add-form d-flex"
             onSubmit={this.onSubmit}>
         <input type="text"
                className="form-control"
                onChange={this.onLabelChange}
-               placeholder="What needs to be done" />
+               placeholder="What needs to be done"
+               value={label} />
         <button className="btn btn-secondary">
           Add Item
         </button>
