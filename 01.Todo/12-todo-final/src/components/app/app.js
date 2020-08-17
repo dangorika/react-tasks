@@ -23,6 +23,18 @@ export default class App extends Component {
     filterValue: 'all'
   };
 
+  componentDidMount() {
+    const { todoData, filterValue } = this.state;
+    
+    const localData = localStorage.getItem('todoData');
+    const localFilterValue = localStorage.getItem('filterValue');
+    
+    this.setState({ 
+      todoData: JSON.parse(localData) || todoData,
+      filterValue: localFilterValue || filterValue
+    });
+  }
+
   createItem(label) {
     return {
       label,
@@ -80,16 +92,20 @@ export default class App extends Component {
 
   toggleImportant = id => {
     this.setState(({ todoData }) => {
+      const data = this.toggleProperty(todoData, id, states.important);
+      localStorage.setItem('todoData', JSON.stringify(data));
       return {
-        todoData: this.toggleProperty(todoData, id, states.important)
+        todoData: data
       };
     });
   };
 
   toggleDone = id => {
     this.setState(({ todoData }) => {
+      const data = this.toggleProperty(todoData, id, states.done);
+      localStorage.setItem('todoData', JSON.stringify(data));
       return {
-        todoData: this.toggleProperty(todoData, id, states.done)
+        todoData: data
       };
     });
   };
@@ -105,6 +121,7 @@ export default class App extends Component {
   };
 
   getFilterValue = val => {
+    localStorage.setItem('filterValue', val);
     this.setState({
       filterValue: val
     });
