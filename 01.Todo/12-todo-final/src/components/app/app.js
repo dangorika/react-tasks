@@ -6,6 +6,8 @@ import SearchPanel from 'components/search-panel';
 import ItemStatusFilter from 'components/item-status-filter';
 import ItemAddForm from 'components/item-add-form';
 
+import { states } from 'consts';
+
 import './app.sass';
 export default class App extends Component {
 
@@ -79,7 +81,7 @@ export default class App extends Component {
   toggleImportant = id => {
     this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleProperty(todoData, id, 'important')
+        todoData: this.toggleProperty(todoData, id, states.important)
       };
     });
   };
@@ -87,7 +89,7 @@ export default class App extends Component {
   toggleDone = id => {
     this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleProperty(todoData, id, 'done')
+        todoData: this.toggleProperty(todoData, id, states.done)
       };
     });
   };
