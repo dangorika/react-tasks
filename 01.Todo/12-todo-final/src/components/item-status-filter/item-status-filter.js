@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 
 import './item-status-filter.sass';
 
@@ -13,14 +14,19 @@ export default class ItemStatusFilter extends Component {
   render() {
     const { filter, onChanged } = this.props;
 
-    const buttons = this.buttons.map(({ name, label, active }) => {
+    const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
-      const activeClass = isActive ? 'btn-info' : 'btn-outline-secondary';
+
+      const classNames = classnames({
+        btn: true,
+        'btn-info': isActive,
+        'btn-outline-secondary': !isActive
+      });
 
       return (
         <button key={name}
                 type="button"
-                className={`btn ${activeClass}`}
+                className={classNames}
                 onClick={() => onChanged(name)}>
           { label }
         </button>

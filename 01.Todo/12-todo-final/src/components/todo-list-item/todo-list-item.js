@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import './todo-list-item.sass';
 
@@ -12,15 +13,11 @@ import './todo-list-item.sass';
       done 
     } = props;
 
-    let classNames = 'todo-list-item';
-
-    if (done) {
-      classNames += ' done';
-    }
-
-    if (important) {
-      classNames += ' important';
-    }
+    const classNames = classnames({
+      'todo-list-item': true,
+      'done': done,
+      'important': important
+    });
 
     return (
       <span className={classNames}>
