@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from 'components/spinner';
 
 import 'assets/sass/common.sass';
 import './random-planet.sass';
@@ -29,11 +30,12 @@ export default class RandomPlanet extends Component {
   }
 
   render() {
-    const { planet: { id, name, population, rotationPeriod, diameter } } = this.state;
+    // const { planet: { id, name, population, rotationPeriod, diameter } } = this.state;
 
     return (
       <div className="panel box">
-        <div className="panel__img">
+        <Spinner />
+        {/* <div className="panel__img">
           <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
         </div>
         <div className="panel__content">
@@ -52,7 +54,7 @@ export default class RandomPlanet extends Component {
               <span>{diameter}</span>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     );
   }
