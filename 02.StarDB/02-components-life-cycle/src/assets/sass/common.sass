@@ -1,0 +1,41 @@
+@import 'assets/sass/variables'
+
+.box
+  background: rgba(#535050, .2)
+  border: $border-style
+  border-radius: 4px
+
+.title
+  font-weight: normal
+  &_h2
+    font-size: 32px
+
+.panel
+  display: flex
+  padding: 24px
+  &__img
+    width: 150px
+    min-width: 150px
+    border-radius: 12px
+    overflow: hidden
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
+  &__content
+    flex-grow: 1
+    padding-left: 36px
+  &__list
+    display: inline-block
+    padding-top: 16px
+    list-style-type: none
+    list-style-position: outside
+    padding-left: 4px
+  &__item
+    padding: 4px 0px
+    font-size: 12px
+    &:not(:last-child)
+      border-bottom: $border-style
+    span
+      &:not(:last-child)
+        margin-right: 12px
