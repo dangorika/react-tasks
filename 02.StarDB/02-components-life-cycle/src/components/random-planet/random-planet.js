@@ -38,7 +38,8 @@ export default class RandomPlanet extends Component {
 
   updatePlanet = () => {
     const id = Math.floor(Math.random()*25) + 2;
-    this.swapiService.getPlanet(id)
+    this.swapiService
+      .getPlanet(id)
       .then(this.onPlanetLoaded)
       .catch(this.onError);
   }
@@ -68,7 +69,7 @@ const PlanetView = ({ planet }) => {
   return (
     <Fragment>
       <div className="panel__img">
-        <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
+        <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="planet"/>
       </div>
       <div className="panel__content">
         <h2 className="title title_h2">{name}</h2>
