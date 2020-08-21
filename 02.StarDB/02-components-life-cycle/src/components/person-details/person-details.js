@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Spinner from 'components/spinner';
+import ErrorButton from 'components/error-button';
 
 import 'assets/sass/common.sass';
 import './person-details.sass';
@@ -48,6 +49,9 @@ export default class  PersonDetails extends Component {
       <div className="panel box">
         {spinner}
         {content}
+        <div className="error-toggle">
+          <ErrorButton />
+        </div>
       </div>
     );
   }
