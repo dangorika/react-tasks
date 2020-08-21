@@ -9,7 +9,7 @@ import './app.sass';
 export default class App extends Component {
 
   state = {
-    selectedPerson: null
+    selectedPerson: 1
   };
   
   onPersonSelected = id => {
