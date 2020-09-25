@@ -4,21 +4,18 @@ import Spinner from 'components/spinner';
 import 'assets/sass/common.sass';
 import './item-list.sass';
 
-import SwapiService from 'services/swapi-service';
-
 export default class ItemList extends Component {
-  
-  swapiService = new SwapiService();
 
   state = {
-    peopleList: null
+    itemList: null
   };
 
   componentDidMount() {
-    this.swapiService
-      .getAllPeople()
-      .then(peopleList => {
-        this.setState({ peopleList })
+    const { getData } = this.props;
+
+    getData()
+      .then(itemList => {
+        this.setState({ itemList })
       });
   }
 
@@ -32,16 +29,16 @@ export default class ItemList extends Component {
         </li>
       );
     })
-  } 
+  }
 
   render() {
-    const { peopleList } = this.state;
+    const { itemList } = this.state;
 
-    if (!peopleList) {
+    if (!itemList) {
       return <Spinner />
     }
 
-    const items = this.renderItems(peopleList);
+    const items = this.renderItems(itemList);
 
     return (
       <ul className="item-list box">
