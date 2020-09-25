@@ -1,6 +1,6 @@
 export default class SwapiService {
   _apiBase = 'https://swapi.dev/api/';
-  async getResource(url) {
+  getResource = async (url) => {
     const response = await fetch(`${this._apiBase}${url}`);
     if (!response.ok) {
       throw new Error(`Could not fetch ${url}, received ${response.status}`);
@@ -9,39 +9,39 @@ export default class SwapiService {
     return result;
   }
 
-  async getAllPeople() {
+  getAllPeople = async () => {
     const response = await this.getResource(`people/`);
     return response.results.map(this._transformPerson);
   }
 
-  async getPerson(id) {
+  getPerson = async (id) => {
     const person = await this.getResource(`people/${id}/`);
     return this._transformPerson(person);
   }
 
-  async getAllPlanets() {
+  getAllPlanets = async () => {
     const response = await this.getResource(`planets/`);
     return response.results.map(this._transformPlanet);
   }
 
-  async getPlanet(id) {
+  getPlanet = async (id) => {
     const planet = await this.getResource(`planets/${id}/`);
     return this._transformPlanet(planet);
   }
 
-  async getAllStarships() {
+  getAllStarships = async () => {
     const response = await this.getResource(`starships/`);
     return response.results.map(this._transformStarship);
   }
 
-  async getStarship(id) {
+  getStarship = async (id) => {
     const starship = await this.getResource(`starships/${id}/`);
     return this._transformStarship(starship);
   }
 
-  _extractId(planet) {
+  _extractId = item => {
     const idRegExp = /\/([0-9])*\/$/;
-    return planet.url.match(idRegExp)[1];
+    return item.url.match(idRegExp)[1];
   }
 
   _transformPlanet = planet => {
@@ -77,43 +77,5 @@ export default class SwapiService {
       eyeColor: person.eye_color
     };
   }
-  
+
 }
-
-// const swapi = new SwapiService();
-
-// swapi.getAllPeople()
-//   .then(people => {
-//     people.forEach(person => {
-//       console.log(`Person name is: ${person.name}`);
-//     });
-//   });
-
-// swapi.getPerson(3)
-//   .then(person => {
-//     console.log(`Single person name is: ${person.name}`);
-//   });
-
-// swapi.getAllPlanets()
-//   .then(planets => {
-//     planets.forEach(planet => {
-//       console.log(`Planet name is: ${planet.name}`);
-//     });
-//   });
-
-// swapi.getPlanet(3)
-//   .then(planet => {
-//     console.log(`Single planet name is: ${planet.name}`);
-//   });
-
-// swapi.getAllStarships()
-//   .then(starships => {
-//     starships.forEach(starship => {
-//       console.log(`Starship name is: ${starship.name}`);
-//     });
-//   });
-
-// swapi.getStarship(3)
-//   .then(starship => {
-//     console.log(`Single starship name is: ${starship.name}`);
-//   });
