@@ -1,0 +1,15 @@
+@import 'assets/sass/variables'
+  
+.item-list
+  list-style-type: none
+  padding: 0
+  &__item
+    padding: 12px 24px
+    font-size: 16px
+    cursor: pointer
+    background-color: transparent
+    transition: background-color .3s ease-in-out
+    &:not(:last-child)
+      border-bottom: $border-style
+    &:hover
+      background-color: rgba(#fff, .1)
