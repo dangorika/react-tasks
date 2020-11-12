@@ -61,8 +61,11 @@ export default class App extends Component {
               <div className="people-page__col col-sm-6">
                 <ItemList
                   onItemSelected={this.onPersonSelected}
-                  getData={this.swapiService.getAllPlanets}
-                  renderItems={item => (<span>{item.name}<button>!</button></span>)} />
+                  getData={this.swapiService.getAllPlanets}>
+                    {(i) => (
+                      <span>{i.name}</span>
+                    )}
+                  </ItemList>
               </div>
               <div className="people-page__col col-sm-6">
                 <PersonDetails personId={this.state.selectedPerson} />
@@ -73,8 +76,9 @@ export default class App extends Component {
               <div className="people-page__col col-sm-6">
                 <ItemList
                   onItemSelected={this.onPersonSelected}
-                  getData={this.swapiService.getAllStarships}
-                  renderItems={item => item.name} />
+                  getData={this.swapiService.getAllStarships}>
+                    {(i) => i.name}
+                  </ItemList>
               </div>
               <div className="people-page__col col-sm-6">
                 <PersonDetails personId={this.state.selectedPerson} />
