@@ -3,47 +3,51 @@ import Spinner from 'components/spinner';
 import ErrorButton from 'components/error-button';
 
 import 'assets/sass/common.sass';
-import './person-details.sass';
+import './item-details.sass';
 
 import SwapiService from 'services/swapi-service';
 
-export default class  PersonDetails extends Component {
-  
+export default class ItemDetails extends Component {
+
   swapiService = new SwapiService();
 
   state = {
-    person: {},
+    item: {},
+    image: null,
     loading: true
   };
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePerson();
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem();
     }
   }
 
-  updatePerson() {
-    const { personId } = this.props;
-    if (!personId) return;
-    
+  updateItem() {
+    const { itemId, getData, getImageUrl } = this.props;
+    if (!itemId) return;
+
     this.setState({ loading: true });
 
-    this.swapiService
-      .getPerson(personId)
-      .then(person => {
-        this.setState({ person, loading: false });
+    getData(itemId)
+      .then(item => {
+        this.setState({
+          item,
+          image: getImageUrl(item),
+          loading: false
+        });
       });
   }
 
   render() {
-    const { person, loading } = this.state;
+    const { item, image, loading } = this.state;
 
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <PersonView person={person} /> : null;
+    const content = !loading ? <ItemView item={item} image={image} /> : null;
 
     return (
       <div className="panel box">
@@ -57,13 +61,13 @@ export default class  PersonDetails extends Component {
   }
 }
 
-const PersonView = ({ person }) => {
-  const { id, name, gender, birthYear, eyeColor } = person;
+const ItemView = ({ item, image }) => {
+  const { id, name, gender, birthYear, eyeColor } = item;
 
   return (
     <Fragment>
       <div className="panel__img">
-        <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt="character"/>
+        <img src={image} alt="character"/>
       </div>
       <div className="panel__content">
         <h2 className="title title_h2">{name}</h2>
