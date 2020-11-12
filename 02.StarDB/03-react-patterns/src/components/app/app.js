@@ -5,89 +5,48 @@ import PeoplePage from 'components/people-page';
 import ErrorButton from 'components/error-button';
 import ErrorMessage from 'components/error-message';
 import ItemList from 'components/item-list';
-import PersonDetails from 'components/person-details';
+import ItemDetails from 'components/item-details';
 
 import './app.sass';
 import SwapiService from 'services/swapi-service';
+import ErrorBoundry from 'components/error-boundry';
+import PageRow from 'components/page-row';
 
 
 export default class App extends Component {
 
   swapiService = new SwapiService();
 
-  state = {
-
-    hasError: false
-  };
-
-  componentDidCatch() {
-    console.log('componentDidCatch()');
-    this.setState({ hasError: true });
-  }
-
   render() {
 
-    if (this.state.hasError) {
-      return (
-        <div className="app-error">
-          <ErrorMessage />
-        </div>
-      );
-    }
+    const { getPerson, getStarship, getPersonImage, getStarshipImage } = this.swapiService;
+
+    const personDetails = (
+      <ItemDetails
+        itemId={11}
+        getData={getPerson}
+        getImageUrl={getPersonImage} />
+    );
+
+    const starshipDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={getStarship}
+        getImageUrl={getStarshipImage} />
+    );
+
 
     return (
-      <div className="app container">
-        <div className="row">
-          <div className="col-sm-12">
-            <Header />
-          </div>
-        </div>
-        <div className="app__row row">
-          <div className="col-sm-12">
-            <RandomPlanet />
-          </div>
-        </div>
-        <div className="app__row row">
-          <div className="col-sm-12">
-            <ErrorButton />
-          </div>
-        </div>
-        <div className="app__row row">
-          <div className="col-sm-12">
+      <ErrorBoundry>
+        <div className="app container">
+          <Header />
 
-            <PeoplePage />
-
-            <div className="people-page row">
-              <div className="people-page__col col-sm-6">
-                <ItemList
-                  onItemSelected={this.onPersonSelected}
-                  getData={this.swapiService.getAllPlanets}>
-                    {(i) => (
-                      <span>{i.name}</span>
-                    )}
-                  </ItemList>
-              </div>
-              <div className="people-page__col col-sm-6">
-                <PersonDetails personId={this.state.selectedPerson} />
-              </div>
-            </div>
-
-            <div className="people-page row">
-              <div className="people-page__col col-sm-6">
-                <ItemList
-                  onItemSelected={this.onPersonSelected}
-                  getData={this.swapiService.getAllStarships}>
-                    {(i) => i.name}
-                  </ItemList>
-              </div>
-              <div className="people-page__col col-sm-6">
-                <PersonDetails personId={this.state.selectedPerson} />
-              </div>
-            </div>
-
-          </div>
+          <PageRow
+            left={personDetails}
+            right={starshipDetails} />
         </div>
-      </div>
+      </ErrorBoundry>
+
     );
   }
 }
