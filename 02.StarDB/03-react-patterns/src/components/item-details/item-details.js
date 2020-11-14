@@ -8,11 +8,11 @@ import './item-details.sass';
 import SwapiService from 'services/swapi-service';
 
 
-const Record = ({ field, label }) => {
+const Record = ({ item, field, label }) => {
   return (
     <li className="panel__item">
       <span>{label}</span>
-      <span>{field}</span>
+      <span>{item[field]}</span>
     </li>
   );
 };
@@ -87,8 +87,8 @@ const ItemView = ({ item, image, children }) => {
         <h2 className="title title_h2">{name}</h2>
         <ul className="panel__list">
           {
-            React.Children.map(children, (child, idx) => {
-              return <li>{idx}</li>;
+            React.Children.map(children, (child) => {
+              return <li>{React.cloneElement(child, { item })}</li>;
             })
           }
         </ul>
