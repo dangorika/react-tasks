@@ -7,6 +7,20 @@ import './item-details.sass';
 
 import SwapiService from 'services/swapi-service';
 
+
+const Record = ({ field, label }) => {
+  return (
+    <li className="panel__item">
+      <span>{label}</span>
+      <span>{field}</span>
+    </li>
+  );
+};
+
+export {
+  Record
+};
+
 export default class ItemDetails extends Component {
 
   swapiService = new SwapiService();
@@ -47,7 +61,7 @@ export default class ItemDetails extends Component {
     const { item, image, loading } = this.state;
 
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <ItemView item={item} image={image} /> : null;
+    const content = !loading ? <ItemView item={item} image={image} children={this.props.children} /> : null;
 
     return (
       <div className="panel box">
@@ -61,7 +75,7 @@ export default class ItemDetails extends Component {
   }
 }
 
-const ItemView = ({ item, image }) => {
+const ItemView = ({ item, image, children }) => {
   const { id, name, gender, birthYear, eyeColor } = item;
 
   return (
@@ -72,18 +86,11 @@ const ItemView = ({ item, image }) => {
       <div className="panel__content">
         <h2 className="title title_h2">{name}</h2>
         <ul className="panel__list">
-          <li className="panel__item">
-            <span>Gender</span>
-            <span>{gender}</span>
-          </li>
-          <li className="panel__item">
-            <span>Birth Year</span>
-            <span>{birthYear}</span>
-          </li>
-          <li className="panel__item">
-            <span>Eye Color</span>
-            <span>{eyeColor}</span>
-          </li>
+          {
+            React.Children.map(children, (child, idx) => {
+              return <li>{idx}</li>;
+            })
+          }
         </ul>
       </div>
     </Fragment>
