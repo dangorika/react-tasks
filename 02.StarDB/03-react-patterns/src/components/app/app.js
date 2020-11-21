@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from 'components/header';
+import ItemList from 'components/item-list/item-list';
 import ItemDetails, { Record } from 'components/item-details';
 
 import './app.sass';
@@ -13,7 +14,7 @@ export default class App extends Component {
 
   render() {
 
-    const { getPerson, getStarship, getPersonImage, getStarshipImage } = this.swapiService;
+    const { getPerson, getStarship, getPersonImage, getStarshipImage, getAllPeople } = this.swapiService;
 
     const personDetails = (
       <ItemDetails
@@ -46,6 +47,14 @@ export default class App extends Component {
           <PageRow
             left={personDetails}
             right={starshipDetails} />
+
+          <ItemList
+            getData={getAllPeople}
+            onItemSelected={() => {}}>
+
+            { ({name}) => <span>{name}</span> }
+          </ItemList>
+
         </div>
       </ErrorBoundry>
 

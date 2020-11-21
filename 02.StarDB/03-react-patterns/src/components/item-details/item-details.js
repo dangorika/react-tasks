@@ -76,7 +76,7 @@ export default class ItemDetails extends Component {
 }
 
 const ItemView = ({ item, image, children }) => {
-  const { id, name, gender, birthYear, eyeColor } = item;
+  const { name } = item;
 
   return (
     <Fragment>
@@ -88,7 +88,7 @@ const ItemView = ({ item, image, children }) => {
         <ul className="panel__list">
           {
             React.Children.map(children, (child) => {
-              return <li>{React.cloneElement(child, { item })}</li>;
+              return <>{React.cloneElement(child, { item })}</>;
             })
           }
         </ul>
