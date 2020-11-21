@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+
 import Header from 'components/header';
-import ItemList from 'components/item-list/item-list';
-import ItemDetails, { Record } from 'components/item-details';
+import {
+  PersonList,
+  PlanetList,
+  StarshipList,
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails
+} from '../sw-components';
 
 import './app.sass';
 import SwapiService from 'services/swapi-service';
@@ -13,51 +20,29 @@ export default class App extends Component {
   swapiService = new SwapiService();
 
   render() {
-
-    const { getPerson, getStarship, getPersonImage, getStarshipImage, getAllPeople } = this.swapiService;
-
-    const personDetails = (
-      <ItemDetails
-        itemId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage}
-      >
-        <Record field="gender" label="Gender" />
-        <Record field="eyeColor" label="Eye Color" />
-      </ItemDetails>
-    );
-
-    const starshipDetails = (
-      <ItemDetails
-        itemId={5}
-        getData={getStarship}
-        getImageUrl={getStarshipImage}
-      >
-        <Record field="model" label="Model" />
-        <Record field="length" label="Length" />
-      </ItemDetails>
-    );
-
-
     return (
       <ErrorBoundry>
         <div className="app container">
           <Header />
 
-          <PageRow
-            left={personDetails}
-            right={starshipDetails} />
+          <PersonDetails itemId={11} />
+          <PlanetDetails itemId={5} />
+          <StarshipDetails itemId={9} />
 
-          <ItemList
-            getData={getAllPeople}
-            onItemSelected={() => {}}>
-
+          <PersonList>
             { ({name}) => <span>{name}</span> }
-          </ItemList>
+          </PersonList>
+
+          <PlanetList>
+            { ({name}) => <span>{name}</span> }
+          </PlanetList>
+
+          <StarshipList>
+            { ({name}) => <span>{name}</span> }
+          </StarshipList>
 
         </div>
       </ErrorBoundry>
-
     );
   }
 }
