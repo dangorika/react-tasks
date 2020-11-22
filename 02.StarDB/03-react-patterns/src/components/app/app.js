@@ -19,7 +19,7 @@ import DummySwapiService from 'services/dummy-swapi-service';
 
 export default class App extends Component {
 
-  swapiService = new SwapiService();
+  swapiService = new DummySwapiService();
 
   render() {
     return (
