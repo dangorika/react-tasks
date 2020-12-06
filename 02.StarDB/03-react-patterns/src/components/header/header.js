@@ -2,7 +2,7 @@ import React from 'react';
 
 import './header.sass';
 
-const Header = () => {
+const Header = ({ onServiceChange }) => {
   return (
     <header className="header">
       <a href="https://localhost:3000/" className="header__logo">StarDB</a>
@@ -11,6 +11,7 @@ const Header = () => {
         <button className="header__nav-item" href="https://localhost:3000/">Planets</button>
         <button className="header__nav-item" href="https://localhost:3000/">Starships</button>
       </nav>
+      <button className="header__button" onClick={onServiceChange}>Change service</button>
     </header>
   )
 };
