@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './page-row.sass';
 
@@ -13,6 +14,11 @@ const PageRow = ({ left, right }) => {
       </div>
     </div>
   );
+};
+
+PageRow.propTypes = {
+  left: PropTypes.node,
+  right: PropTypes.node,
 };
 
 export default PageRow;
