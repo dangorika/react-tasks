@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
   const [visible, setVisible] = useState(true);
 
   if (visible) {
@@ -10,7 +10,8 @@ const App = () => {
       <div>
         <button onClick={() => setValue((v) => v + 1)}>+</button>
         <button onClick={() => setVisible(false)}>hide</button>
-        <PlanetInfo id={value} />
+        <HookCounter value={value} />
+        <Notifications />
       </div>
     );
   } else {
@@ -20,23 +21,36 @@ const App = () => {
   }
 };
 
-const PlanetInfo = ({ id }) => {
-
-  const [ name, setName ] = useState(null);
-  let cancelled = false;
+const HookCounter = ({ value }) => {
+  useEffect(() => {
+    console.log(' mount ');
+    return () => console.log(' unmount ');
+  }, []);
 
   useEffect(() => {
-    fetch(`https://swapi.dev/api/planets/${id}`)
-      .then((res) => res.json())
-      .then((data) => !cancelled && setName(data.name));
-      return () => cancelled = true;
-  }, [id]);
+    console.log(' update ');
+  }, [ value ]);
 
   return (
-    <div>{id} - {name}</div>
+    <p>{value}</p>
   );
 };
 
+const Notifications = () => {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setVisible(false), 2500);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <div>
+      {visible && <p>Hello</p>}
+    </div>
+  );
+}
 
 ReactDOM.render(
   <React.StrictMode>
